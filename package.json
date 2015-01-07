@@ -1,0 +1,23 @@
+{
+  "name": "Mean.io",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qudi15/Mean.io.git"
+  },
+  "author": "Magic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qudi15/Mean.io/issues"
+  },
+  "homepage": "https://github.com/qudi15/Mean.io",
+  "dependencies": {
+    "express": "^4.10.7",
+    "mongodb": "^1.4.28"
+  }
+}
