@@ -18,6 +18,7 @@
   "homepage": "https://github.com/qudi15/Mean.io",
   "dependencies": {
     "express": "^4.10.7",
-    "mongodb": "^1.4.28"
+    "mongodb": "^1.4.28",
+    "redis": "^0.12.1"
   }
 }
