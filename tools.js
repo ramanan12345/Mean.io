@@ -1,12 +1,10 @@
+var 
+  node_uuid = require('node_uuid');
 
-function getType(o){
-	var toString = Object.prototype.toString;
-	var t = toString.call(o);
-	var start = t.indexOf(' ');
-	var end = t.length - 1;
-	return t.substring(start,end);
+function uuid(){
+	return node_uuid.v4().replace(/-/g, '');
 }
 
 exports.tools = {
-	GetType : getType
+	uuid : uuid
 } 

@@ -7,5 +7,8 @@
 	"redis":{
 		"host":'192.168.7.220',
 		"port":6379,
+	},
+	"fileServer":{
+		"filePath":'D:\webroot\'
 	}
 }

@@ -1,0 +1,138 @@
+<!--CodeMirror-->
+<script src="lib/codemirror.js"></script>
+<script src="addon/fold/foldcode.js"></script>
+<script src="addon/fold/foldgutter.js"></script>
+<script src="addon/fold/brace-fold.js"></script>
+<script src="addon/fold/xml-fold.js"></script>
+<script src="addon/fold/markdown-fold.js"></script>
+<script src="addon/fold/comment-fold.js"></script>
+<script src="mode/javascript/javascript.js"></script>
+<script src="mode/xml/xml.js"></script>
+<script src="mode/markdown/markdown.js"></script>
+<script src="addon/hint/show-hint.js"></script>
+<script src="addon/hint/javascript-hint.js"></script>
+<script src="addon/hint/html-hint.js"></script>
+<script src="mode/htmlmixed/htmlmixed.js"></script>
+<script src="addon/edit/closetag.js"></script>
+<script src="addon/edit/closebrackets.js"></script>
+
+<!--Jquery-->
+<script src="lib/jquery-2.0.3.min.js"></script>
+
+<!--Angularjs-->
+<script src="lib/angular.min.js"></script>
+
+<!--BootStrap-->
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+<!--PYM-->
+<script src="lib/plugin/pym/pym.js"></script>
+<script>
+
+  jQuery.noConflict();
+
+  var
+    js = document.getElementById('jscode'),
+    html = document.getElementById('htmlcode'),
+    css = document.getElementById('csscode');
+
+  CodeMirror.commands.autocomplete = function (cm) {
+    CodeMirror.showHint(cm, CodeMirror.javascriptHint);
+  };
+
+  var
+    jsEdit = CodeMirror.fromTextArea(js, {
+      lineNumbers: true,
+      lineWrapping: true,
+      foldGutter: true,
+      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+      textWrapping: true,
+      extraKeys: {"Ctrl": "autocomplete"},//代码提示
+      mode: "javascript",
+      autoCloseBrackets: true //js括号补全
+    }),
+    htmlEdit = CodeMirror.fromTextArea(html, {
+      lineNumbers: true,
+      lineWrapping: true,
+      foldGutter: true,
+      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+      textWrapping: true,
+      extraKeys: {"Ctrl": "autocomplete"},//代码提示
+      autoCloseTags: true,//html<补全
+      mode: "text/html"
+    });
+
+  var htmlval = '';
+
+  function drawGraphic(width) {
+    pym_sc.sendHeightToParent();
+  }
+
+  var pym_sc = pym.Parent('content', '', {
+    renderCallback: drawGraphic
+  });
+
+  var innerBody = jQuery(window.frames[0].document.body);
+  var innerHead = jQuery(window.frames[0].document.head);
+  var script = window.frames[0].document.createElement('script');
+  script.src = 'lib/jquery-2.0.3.min.js';
+  script.onload = function(){
+    window.$ = window.frames[0].$;
+    console.log('Jquery init');
+  };
+  innerHead[0].appendChild(script);
+
+  function inTime($scope) {
+    $scope.code = 's';
+  }
+
+  (function(){
+
+    var htmlcode,jscode,csscode;
+
+    innerBody.unbind('_change').bind('_change',function(e){
+      jQuery(this).empty();
+
+      var content = jQuery('<div>').html(htmlcode);
+      var script = jQuery('<script>').html(jscode);
+      var link = jQuery('<link>').html(csscode);
+
+      jQuery(this)
+        .append(link)
+        .append(content)
+        .append(script);
+
+    });
+
+    htmlEdit.on('change', function (cm) {
+      cm.save();
+      htmlcode = html.value;
+      innerBody.trigger('_change');
+    });
+
+    jsEdit.on('change', function (cm) {
+      cm.save();
+      jscode = js.value;
+
+      innerBody.trigger('_change');
+
+//      innerBody.children('script').remove();
+//
+//      $('<script>').html(jscode).appendTo(innerBody);
+
+//      $('#pre').unbind('click').click(function (e) {
+//        $('#content').empty();
+//        $('#codeprelook').html(htmlcode);
+//        $('#codeEval').remove();
+//        $('<script>').attr('id','codeEval')
+//          .appendTo($("body")).html(jscode);
+//      });
+//      $(js).trigger('input');
+    });
+
+  })();
+
+</script>
+<script id="codeEval"></script>
+</body>
+</html>

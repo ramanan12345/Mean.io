@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.10.7",
     "mongodb": "^1.4.28",
-    "redis": "^0.12.1"
+    "redis": "^0.12.1",
+    "node-uuid": "^1.4.2"
   }
 }
